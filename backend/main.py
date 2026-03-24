@@ -4,6 +4,7 @@ import json
 from flask import Flask, jsonify
 from flask_cors import CORS
 import threading
+import time
 
 app = Flask(__name__)
 CORS(app)
@@ -21,6 +22,7 @@ def get_db_connection():
 # do wiadomosci z mqtt
 def on_message(client, userdata, message):
     try:
+        print("dotarla wiadomosc")
         data = json.loads(message.payload.decode("utf-8"))
         db = get_db_connection()
         cursor = db.cursor()
@@ -38,13 +40,19 @@ def on_message(client, userdata, message):
     except Exception as e:
         print(f"Error: {e}")
 
+def on_connect(client, userdata, flags, rc):
+    print("Połączono z brokerem MQTT!")
+    client.subscribe("akursa/microclimate/measurements")
 
 def run_mqtt():
     client = mqtt.Client()
+    client.on_connect = on_connect
     client.on_message = on_message
-    client.connect("localhost", 1883)
-    client.subscribe("climate/measurements")
-    client.loop_forever()
+    client.connect("broker.hivemq.com", 1883)
+    client.loop_start() 
+    
+    while True:
+        time.sleep(1)
 
 
 @app.route('/api/measurements', methods=['GET'])

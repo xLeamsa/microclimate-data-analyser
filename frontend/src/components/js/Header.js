@@ -1,5 +1,4 @@
 import React from 'react';
-import { ArrowBigDown } from 'lucide-react';
 import { AirVent } from 'lucide-react'
 import "../css/Header.css"
 

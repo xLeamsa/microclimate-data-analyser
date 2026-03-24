@@ -6,10 +6,10 @@ import '../css/App.css';
 
 function App() {
   return (
-    <div className="app-wrapper">
+    <div>
       <Header />
 
-      <main className="main-content">
+      <main>
         <Dashboard />
       </main>
 
