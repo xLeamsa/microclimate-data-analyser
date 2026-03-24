@@ -1,0 +1,28 @@
+.navbar-light {
+    background-color: #1d3557 !important;
+    font-family: "Datatype", monospace;
+}
+
+.navbar-brand {
+    font-size: 2em;
+    margin-right: 1.2em;
+    color: #f1faee;
+}
+
+.navbar-brand:hover {
+    color: #457b9d;
+}
+
+.nav-item {
+    font-size: 1.5em;
+    font-weight: 200;
+    margin: 0 0.5em;
+}
+
+.nav-link {
+    color: #f1faee;
+}
+
+.nav-link:hover {
+    color: #457b9d !important;
+}
