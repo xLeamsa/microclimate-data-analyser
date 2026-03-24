@@ -19,3 +19,5 @@ This project is an integrated IoT solution designed for real-time monitoring of 
 - `/frontend`: React source code, components, and styles.
 - `/backend`: Python scripts for API endpoints and database management.
 - `/docs`: Project documentation and architecture diagrams.
+
+To set up the database, import the `microclimate_db.sql` file into your MySQL server
