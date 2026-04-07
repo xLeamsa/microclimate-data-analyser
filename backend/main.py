@@ -9,6 +9,13 @@ import time
 app = Flask(__name__)
 CORS(app)
 
+try:
+    with open("../password.txt", "r") as file:
+        mqtt_password = file.read().strip() 
+except FileNotFoundError:
+    print("Nie znaleziono plika password.txt!")
+    exit()
+
 # XAMPP
 def get_db_connection():
     return mysql.connector.connect(
@@ -28,7 +35,7 @@ def on_message(client, userdata, message):
         cursor = db.cursor()
 
         #comfort obliczenia
-        
+
         sql = "INSERT INTO measurements (sensor_id, temperature, humidity, co2, comfort_score) VALUES (%s, %s, %s, %s, %s)"
         values = (data['sensor_id'], data['temp'], data['hum'], data['co2'], 0)
 
@@ -51,7 +58,7 @@ def run_mqtt():
     client.on_connect = on_connect
     client.on_message = on_message
 
-    client.username_pw_set("admin", "Admin123")
+    client.username_pw_set("admin", mqtt_password)
 
     client.tls_set() 
     client.connect("e48e564e16c447268f3360c3098a0691.s1.eu.hivemq.cloud", 8883)

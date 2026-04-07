@@ -2,13 +2,20 @@ import paho.mqtt.client as mqtt
 import json
 import time
 
+try:
+    with open("../password.txt", "r") as file:
+        mqtt_password = file.read().strip() 
+except FileNotFoundError:
+    print("Nie znaleziono plika password.txt!")
+    exit()
+
 BROKER = "e48e564e16c447268f3360c3098a0691.s1.eu.hivemq.cloud"
 PORT = 8883
 TOPIC = "akursa/microclimate/measurements"
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
 
-client.username_pw_set("admin", "Admin123")
+client.username_pw_set("admin", mqtt_password)
 
 client.tls_set()
 

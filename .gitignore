@@ -36,3 +36,6 @@ backend/.env
 # System
 .DS_Store
 Thumbs.db
+
+
+password.txt
