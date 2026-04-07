@@ -27,6 +27,8 @@ def on_message(client, userdata, message):
         db = get_db_connection()
         cursor = db.cursor()
 
+        #comfort obliczenia
+        
         sql = "INSERT INTO measurements (sensor_id, temperature, humidity, co2, comfort_score) VALUES (%s, %s, %s, %s, %s)"
         values = (data['sensor_id'], data['temp'], data['hum'], data['co2'], 0)
 
@@ -41,16 +43,20 @@ def on_message(client, userdata, message):
         print(f"Error: {e}")
 
 def on_connect(client, userdata, flags, rc):
-    print("Połączono z brokerem MQTT!")
+    print("Połączono z brokerem MQTT")
     client.subscribe("akursa/microclimate/measurements")
 
 def run_mqtt():
-    client = mqtt.Client()
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)  
     client.on_connect = on_connect
     client.on_message = on_message
-    client.connect("broker.hivemq.com", 1883)
-    client.loop_start() 
+
+    client.username_pw_set("admin", "Admin123")
+
+    client.tls_set() 
+    client.connect("e48e564e16c447268f3360c3098a0691.s1.eu.hivemq.cloud", 8883)
     
+    client.loop_start() 
     while True:
         time.sleep(1)
 
