@@ -13,6 +13,14 @@
     color: #457b9d;
 }
 
+.navbar-brand:focus,
+.navbar-brand:active {
+    color: #f1faee !important;
+    background-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 .nav-item {
     font-size: 1.5em;
     font-weight: 200;
@@ -24,5 +32,18 @@
 }
 
 .nav-link:hover {
+    color: #457b9d !important;
+}
+
+.navbar-nav .nav-item.active .nav-link,
+.navbar-nav .nav-item .nav-link.active,
+.navbar-nav .nav-link:focus {
+    color: #f1faee !important;
+    background-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.navbar-nav .nav-item.active .nav-link:hover {
     color: #457b9d !important;
 }

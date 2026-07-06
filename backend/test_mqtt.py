@@ -23,10 +23,10 @@ print(f"Łączenie z prywatnym brokerem: {BROKER}...")
 client.connect(BROKER, PORT)
 
 data = {
-    "sensor_id": "test3",
-    "temp": "25.10",    
-    "hum": "45.00",    
-    "co2": 750
+    "sensor_id": "test-comfort-12",
+    "temp": "18.5",    
+    "hum": "80.00",    
+    "co2": 600
 }
 
 print(f"Wysyłam dane na temat: {TOPIC}...")

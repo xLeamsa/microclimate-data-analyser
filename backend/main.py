@@ -1,10 +1,11 @@
 import paho.mqtt.client as mqtt
 import mysql.connector
 import json
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import threading
 import time
+from fuzzy_logic import calculate_comfort
 
 app = Flask(__name__)
 CORS(app)
@@ -34,10 +35,15 @@ def on_message(client, userdata, message):
         db = get_db_connection()
         cursor = db.cursor()
 
-        #comfort obliczenia
+        comfort = calculate_comfort(
+            data['temp'], 
+            data['hum'], 
+            data['co2']
+        )
+        
 
         sql = "INSERT INTO measurements (sensor_id, temperature, humidity, co2, comfort_score) VALUES (%s, %s, %s, %s, %s)"
-        values = (data['sensor_id'], data['temp'], data['hum'], data['co2'], 0)
+        values = (data['sensor_id'], data['temp'], data['hum'], data['co2'], comfort)
 
         cursor.execute(sql, values)
         db.commit()
@@ -77,6 +83,30 @@ def get_measurements():
     cursor.close()
     db.close()
     return jsonify(results)
+
+@app.route('/api/measurements/history', methods=['GET'])
+def get_history():
+    time_range = request.args.get('range', '1d')
+    
+    hours = 24
+    if time_range == '7d': hours = 24 * 7
+    elif time_range == '30d': hours = 24 * 30
+    
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+    
+    query = """
+        SELECT timestamp, temperature, humidity, co2, comfort_score 
+        FROM measurements 
+        WHERE timestamp >= NOW() - INTERVAL %s HOUR
+        ORDER BY timestamp ASC
+    """
+    cursor.execute(query, (hours,))
+    data = cursor.fetchall()
+    
+    cursor.close()
+    db.close()
+    return jsonify(data)
 
 
 if __name__ == '__main__':

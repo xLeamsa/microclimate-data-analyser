@@ -1,0 +1,55 @@
+.recharts-wrapper,
+.recharts-wrapper *,
+.recharts-surface,
+.recharts-surface *,
+svg,
+svg * {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.chart-container-small {
+    width: 100%;
+    height: 250px;
+}
+
+.chart-container-large {
+    width: 100%;
+    height: 250px;
+}
+
+.time-range-select {
+    width: auto;
+}
+
+.gradient-temp-stop-top {
+    stop-color: #e63946;
+}
+
+.gradient-temp-stop-bottom {
+    stop-color: #e63946;
+}
+
+.gradient-hum-stop-top {
+    stop-color: #457b9d;
+}
+
+.gradient-hum-stop-bottom {
+    stop-color: #457b9d;
+}
+
+.gradient-co2-stop-top {
+    stop-color: #2a9d8f;
+}
+
+.gradient-co2-stop-bottom {
+    stop-color: #2a9d8f;
+}
+
+.gradient-comfort-stop-top {
+    stop-color: #a264ff;
+}
+
+.gradient-comfort-stop-bottom {
+    stop-color: #a264ff;
+}

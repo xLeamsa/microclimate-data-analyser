@@ -1,6 +1,10 @@
 .dashboard-content {
-    background-color: #f1faee;
+    background-color: #fbfff5;
     min-height: 50em;
     font-family: "Datatype", monospace;
 
+}
+
+.border-primary {
+    border-color: #457b9d !important;
 }

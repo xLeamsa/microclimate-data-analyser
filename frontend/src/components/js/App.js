@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import Dashboard from './Dashboard';
 import '../css/App.css';
+import Charts from './Charts';
 
 function App() {
+  const [activePage, setActivePage] = useState('home');
+
   return (
     <div>
-      <Header />
+      <Header setActivePage={setActivePage} activePage={activePage} />
 
       <main>
-        <Dashboard />
+        {activePage === 'home' && <Dashboard />}
+        {activePage === 'charts' && <Charts />}
       </main>
 
       <Footer />
     </div>
-
   );
 }
 
