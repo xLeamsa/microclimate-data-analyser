@@ -8,3 +8,43 @@
 .border-primary {
     border-color: #457b9d !important;
 }
+
+.dashboard-container .bg-light,
+.dashboard-container .bg-dark {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboard-container .fw-semibold {
+    white-space: nowrap;
+}
+
+.dashboard-container .fs-5.fw-bold,
+.dashboard-container .text-end {
+    white-space: nowrap;
+    margin-left: auto;
+    text-align: right;
+}
+
+.dashboard-container .bg-dark .text-end {
+    display: flex;
+    flex-column: column;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.dashboard-container .bg-dark .text-end {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2px;
+}
+
+.dashboard-container .bg-dark .text-end small {
+    white-space: nowrap;
+    display: block;
+}

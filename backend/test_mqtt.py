@@ -1,38 +1,36 @@
-import paho.mqtt.client as mqtt
 import json
+import os
 import time
 
-try:
-    with open("../password.txt", "r") as file:
-        mqtt_password = file.read().strip() 
-except FileNotFoundError:
-    print("Nie znaleziono plika password.txt!")
-    exit()
+import paho.mqtt.client as mqtt
+from dotenv import load_dotenv
 
-BROKER = "e48e564e16c447268f3360c3098a0691.s1.eu.hivemq.cloud"
-PORT = 8883
-TOPIC = "akursa/microclimate/measurements"
+load_dotenv()
+
+MQTT_BROKER = os.getenv("MQTT_BROKER")
+MQTT_PORT = int(os.getenv("MQTT_PORT", "8883"))
+MQTT_TOPIC = os.getenv("MQTT_TOPIC")
+MQTT_USER = os.getenv("MQTT_USER")
+MQTT_PASSWORD = os.getenv("MQTT_PASSWORD")
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
-
-client.username_pw_set("admin", mqtt_password)
-
+client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
 client.tls_set()
 
-print(f"Łączenie z prywatnym brokerem: {BROKER}...")
-client.connect(BROKER, PORT)
+print(f"Connecting to broker: {MQTT_BROKER}...")
+client.connect(MQTT_BROKER, MQTT_PORT)
 
-data = {
-    "sensor_id": "test-comfort-12",
-    "temp": "18.5",    
-    "hum": "80.00",    
-    "co2": 600
+payload = {
+    "sensor_id": "test-comfort-13",
+    "temp": "22",
+    "hum": "50.00",
+    "co2": 1000,
 }
 
-print(f"Wysyłam dane na temat: {TOPIC}...")
-info = client.publish(TOPIC, json.dumps(data))
-info.wait_for_publish() 
+print(f"Publishing to {MQTT_TOPIC}...")
+info = client.publish(MQTT_TOPIC, json.dumps(payload))
+info.wait_for_publish()
 
-print("Dane wysłane do prywatnej chmury")
-time.sleep(1) 
+print("Message published")
+time.sleep(1)
 client.disconnect()

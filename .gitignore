@@ -38,4 +38,5 @@ backend/.env
 Thumbs.db
 
 
-password.txt
+.env.example
+.env
